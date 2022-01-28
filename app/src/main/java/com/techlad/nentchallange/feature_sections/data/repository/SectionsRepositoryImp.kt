@@ -1,12 +1,16 @@
 package com.techlad.nentchallange.feature_sections.data.repository
 
-import com.techlad.nentchallange.feature_sections.domain.model.Section
+import com.techlad.nentchallange.feature_sections.data.datasource.db.fetchSectionInDomain
+import com.techlad.nentchallange.feature_sections.data.datasource.db.insertSectionFromDomain
+import com.techlad.nentchallange.feature_sections.domain.Resource
+import com.techlad.nentchallange.feature_sections.domain.Resource.Companion.loading
 import com.techlad.nentchallange.feature_sections.domain.datasource.SectionsDataSource
+import com.techlad.nentchallange.feature_sections.domain.datasource.db.dao.SectionsDao
+import com.techlad.nentchallange.feature_sections.domain.datasource.db.dao.SubSectionsDao
 import com.techlad.nentchallange.feature_sections.domain.repository.SectionsRepository
-import com.techlad.nentchallange.utils.Resource
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -14,13 +18,46 @@ import kotlinx.coroutines.flow.flowOn
  * Created by umair.khalid on 25,January,2022
  **/
 
-class SectionsRepositoryImp @Inject constructor(private val dataSource: SectionsDataSource) :
-    SectionsRepository {
-    override suspend fun getSectionDetail(url: String): Flow<Resource<Section>> {
-        return flow {
-            emit(Resource.loading())
-            val result = dataSource.getSections()
-            emit(result)
-        }.flowOn(Dispatchers.IO)
-    }
+class SectionsRepositoryImp @Inject constructor(
+    private val networkSource: SectionsDataSource,
+    private val sectionsDao: SectionsDao,
+    private val subSectionsDao: SubSectionsDao,
+) : SectionsRepository {
+
+    override suspend fun getSectionDetail(url: String) = flow {
+        emit(loading())
+
+        val db = try {
+            networkSource.getSections(url).also {
+                if (it.status == Resource.Status.ERROR) {
+                    emit(it)
+                } else {
+                    sectionsDao.insertSectionFromDomain(url, it.data)
+                }
+            }
+            sectionsDao.fetchSectionInDomain(url)
+        } catch (e: Exception) {
+            sectionsDao.fetchSectionInDomain(url)
+        }
+
+        emitAll(db)
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getSectionsList() = flow {
+        emit(loading())
+
+        val db = try {
+            networkSource.getSections("").also {
+                if (it.status == Resource.Status.ERROR) {
+                    emit(it)
+                } else {
+                    subSectionsDao.insertSectionFromDomain(it.data)
+                }
+            }
+            subSectionsDao.fetchSectionInDomain()
+        } catch (e: Exception) {
+            subSectionsDao.fetchSectionInDomain()
+        }
+        emitAll(db)
+    }.flowOn(Dispatchers.IO)
 }

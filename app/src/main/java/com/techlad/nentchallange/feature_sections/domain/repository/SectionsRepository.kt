@@ -1,7 +1,7 @@
 package com.techlad.nentchallange.feature_sections.domain.repository
 
+import com.techlad.nentchallange.feature_sections.domain.Resource
 import com.techlad.nentchallange.feature_sections.domain.model.Section
-import com.techlad.nentchallange.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -9,5 +9,6 @@ import kotlinx.coroutines.flow.Flow
  **/
 
 interface SectionsRepository {
-    suspend fun getSectionDetail(url : String): Flow<Resource<Section>>
+    suspend fun getSectionDetail(url: String): Flow<Resource<Section>>
+    suspend fun getSectionsList(): Flow<Resource<Section>>
 }

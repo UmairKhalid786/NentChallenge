@@ -9,10 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.techlad.nentchallange.feature_sections.presentation.SectionsViewModel
 import com.techlad.nentchallange.feature_sections.presentation.TryAgainWidget
-import com.techlad.nentchallange.utils.Resource
-import kotlinx.coroutines.delay
+import com.techlad.nentchallange.feature_sections.domain.Resource
+import com.techlad.nentchallange.feature_sections.presentation.SectionsViewModel
 
 /**
  * Created by umair.khalid on 25,January,2022
@@ -25,11 +24,9 @@ fun SectionDetailsScreen(
     viewModel: SectionsViewModel = hiltViewModel(),
 ) {
 
-    val sectionsResponse = viewModel.sectionsList.collectAsState()
+    val sectionsResponse = viewModel.sectionDetail.collectAsState()
 
     LaunchedEffect(key1 = url) {
-        // Added delay for given little progress ;)
-        delay(1000)
         url?.let { viewModel.getSectionDetail(it) }
     }
 

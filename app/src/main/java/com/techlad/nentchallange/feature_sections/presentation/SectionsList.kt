@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.techlad.nentchallange.feature_sections.domain.model.Section
+import com.techlad.nentchallange.feature_sections.domain.model.SubSection
 import com.techlad.nentchallange.utils.TestTags.SECTIONS_LIST
 
 /**
@@ -17,8 +17,8 @@ import com.techlad.nentchallange.utils.TestTags.SECTIONS_LIST
 @ExperimentalMaterialApi
 @Composable
 fun SectionsList(
-    list: List<Section>,
-    onSectionClick: (Section) -> Unit
+    list: List<SubSection>,
+    onSectionClick: (SubSection) -> Unit
 ) {
 
     LazyColumn(contentPadding = PaddingValues(16.dp), modifier = Modifier.testTag(SECTIONS_LIST)) {

@@ -5,9 +5,9 @@ package com.techlad.nentchallange.feature_sections.domain.model
  **/
 
 data class Section(
-    val id: String,
+    val sectionId: String?,
     val title: String,
+    val pageType: String,
     val description: String,
-    val href: String,
-    val sections: List<Section>
+    var sections: List<SubSection>
 )

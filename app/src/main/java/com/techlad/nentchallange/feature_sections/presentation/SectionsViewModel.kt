@@ -1,12 +1,14 @@
 package com.techlad.nentchallange.feature_sections.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.techlad.nentchallange.feature_sections.domain.model.Section
 import com.techlad.nentchallange.feature_sections.domain.usecases.SectionsUseCase
-import com.techlad.nentchallange.utils.Resource
+import com.techlad.nentchallange.feature_sections.domain.Resource
+import com.techlad.nentchallange.feature_sections.domain.model.Section
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -22,15 +24,33 @@ class SectionsViewModel @Inject constructor(private val useCase: SectionsUseCase
     private val _sectionsList = MutableStateFlow<Resource<Section>>(Resource.loading())
     val sectionsList: StateFlow<Resource<Section>> = _sectionsList
 
+    private val _sectionDetail = MutableStateFlow<Resource<Section>>(Resource.loading())
+    val sectionDetail: StateFlow<Resource<Section>> = _sectionDetail
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+    }
+
     init {
-        getSectionDetail("")
+        // As its shared viewmodel so it will be called only once
+        getAllSections()
     }
 
     fun getSectionDetail(url: String) {
-        viewModelScope.launch {
+        _sectionDetail.value = Resource.loading()
+        viewModelScope.launch(exceptionHandler) {
             useCase.getSectionDetail(url).collect {
+                _sectionDetail.value = it
+            }
+        }
+    }
+
+    fun getAllSections() {
+        viewModelScope.launch(exceptionHandler) {
+            useCase.getAllSections().collect {
                 _sectionsList.value = it
             }
         }
     }
+
 }

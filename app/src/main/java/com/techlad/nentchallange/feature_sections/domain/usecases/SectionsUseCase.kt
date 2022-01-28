@@ -5,5 +5,6 @@ package com.techlad.nentchallange.feature_sections.domain.usecases
  **/
 
 data class SectionsUseCase(
-    val getSectionDetail: GetSectionDetail
+    val getSectionDetail: GetSectionDetail,
+    val getAllSections: GetSectionsList
 )

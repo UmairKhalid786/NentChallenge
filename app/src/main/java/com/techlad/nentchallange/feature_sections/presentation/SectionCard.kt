@@ -20,8 +20,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.techlad.nentchallange.feature_sections.domain.model.SubSection
 import com.techlad.nentchallange.R
-import com.techlad.nentchallange.feature_sections.domain.model.Section
 
 /**
  * Created by umair.khalid on 25,January,2022
@@ -29,7 +29,7 @@ import com.techlad.nentchallange.feature_sections.domain.model.Section
 
 @ExperimentalMaterialApi
 @Composable
-fun SectionCard(section: Section, onClick: () -> Unit) {
+fun SectionCard(section: SubSection, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(12.dp)
@@ -61,7 +61,7 @@ fun SectionCard(section: Section, onClick: () -> Unit) {
                     color = MaterialTheme.colors.onSurface,
                 )
                 Text(
-                    text = section.description,
+                    text = section.title,
                     style = MaterialTheme.typography.caption,
                 )
             }
@@ -73,12 +73,12 @@ fun SectionCard(section: Section, onClick: () -> Unit) {
 @Preview
 @Composable
 fun SectionCardPreview() {
-    SectionCard(Section("12",
-        "asbc",
-        "Section detail",
-        "",
-        listOf(Section("12", "asbc", "Section detail", "", listOf()),
-            Section("12", "asbc", "Section detail", "", listOf())))) {
-
-    }
+//    SectionCard(Section("12",
+//        "asbc",
+//        "Section detail",
+//        "",
+//        listOf(Section("12", "asbc", "Section detail", "", listOf()),
+//            Section("12", "asbc", "Section detail", "", listOf())))) {
+//
+//    }
 }

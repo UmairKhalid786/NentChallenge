@@ -3,6 +3,7 @@ package com.techlad.nentchallange.di
 import com.techlad.nentchallange.feature_sections.domain.repository.SectionsRepository
 import com.techlad.nentchallange.feature_sections.domain.usecases.SectionsUseCase
 import com.techlad.nentchallange.feature_sections.domain.usecases.GetSectionDetail
+import com.techlad.nentchallange.feature_sections.domain.usecases.GetSectionsList
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +19,7 @@ class UseCasesModule {
 
     @Provides
     fun provideSectionsUseCase(repository: SectionsRepository) = SectionsUseCase(
-        getSectionDetail = GetSectionDetail(repository)
+        getSectionDetail = GetSectionDetail(repository),
+        getAllSections = GetSectionsList(repository)
     )
 }

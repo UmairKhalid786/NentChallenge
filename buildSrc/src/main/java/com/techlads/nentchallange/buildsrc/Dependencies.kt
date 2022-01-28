@@ -23,6 +23,9 @@ object Versions {
     const val compose = "1.2.0-alpha01"
     const val kotlin_version = "1.6.10"
     const val moshi = "1.13.0"
+    const val retrofit = "2.9.0"
+    const val okhttp = "4.9.0"
+    const val room = "2.3.0"
 }
 
 object AndroidApp {
@@ -39,7 +42,18 @@ object AndroidApp {
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.3"
     const val ktLint = "com.pinterest:ktlint:${Versions.ktLint}"
-    const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.ktLint}"
+
+    const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
+    const val moshi_kotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+    const val moshi_adapters = "com.squareup.moshi:moshi-adapters:${Versions.moshi}"
+    const val moshi_codegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+
+    const val okhttp_bom = "com.squareup.okhttp3:okhttp-bom:${Versions.okhttp}"
+    const val okhttp = "com.squareup.okhttp3:okhttp"
+    const val okhttp_interceptor = "com.squareup.okhttp3:logging-interceptor"
 
     object Accompanist {
         const val version = "0.22.0-rc"
@@ -67,6 +81,10 @@ object Libs {
         const val material = "com.google.android.material:material:1.4.0"
         const val core_ktx = "androidx.core:core-ktx:1.7.0"
         const val splash = "androidx.core:core-splashscreen:1.0.0-beta01"
+
+        const val room_runtime = "androidx.room:room-runtime:${Versions.room}"
+        const val room_ktx = "androidx.room:room-ktx:${Versions.room}"
+        const val room_compiler = "androidx.room:room-compiler:${Versions.room}"
 
         const val navigation = "androidx.navigation:navigation-compose:2.4.0-rc01"
 

@@ -1,11 +1,11 @@
 package com.techlad.nentchallange.feature_sections.domain.usecases
 
 import com.google.common.truth.Truth
-import com.techlad.nentchallange.feature_sections.data.datasource.SectionsDataSourceImpl
+import com.techlad.nentchallange.feature_sections.data.datasource.network.SectionsDataSourceImp
 import com.techlad.nentchallange.feature_sections.data.repository.SectionsRepositoryImpTest
 import com.techlad.nentchallange.feature_sections.domain.datasource.SectionsDataSource
-import com.techlad.nentchallange.utils.Resource.Status.ERROR
-import com.techlad.nentchallange.utils.Resource.Status.SUCCESS
+import com.techlad.nentchallange.feature_sections.domain.Resource.Status.ERROR
+import com.techlad.nentchallange.feature_sections.domain.Resource.Status.SUCCESS
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -26,7 +26,7 @@ class GetSectionDetailTest {
 
     @Before
     fun setUp() {
-        fakeDataSourceFake = SectionsDataSourceImpl()
+        fakeDataSourceFake = SectionsDataSourceImp()
         repository = SectionsRepositoryImpTest(fakeDataSourceFake)
         useCase = GetSectionDetail(repository)
     }

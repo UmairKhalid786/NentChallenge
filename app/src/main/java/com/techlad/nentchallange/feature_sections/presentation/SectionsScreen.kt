@@ -12,11 +12,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.techlad.nentchallange.nevigation.DetailsParam
 import com.techlad.nentchallange.nevigation.Screens
-import com.techlad.nentchallange.utils.Resource.Status.ERROR
-import com.techlad.nentchallange.utils.Resource.Status.LOADING
-import com.techlad.nentchallange.utils.Resource.Status.SUCCESS
-import com.techlad.nentchallange.utils.lastSegment
-import com.techlad.nentchallange.utils.removeDtg
+import com.techlad.nentchallange.feature_sections.domain.Resource.Status.ERROR
+import com.techlad.nentchallange.feature_sections.domain.Resource.Status.LOADING
+import com.techlad.nentchallange.feature_sections.domain.Resource.Status.SUCCESS
+
 
 /**
  * Created by umair.khalid on 25,January,2022
@@ -40,13 +39,13 @@ fun SectionsScreen(
         SUCCESS -> {
             sectionsResponse.value.data?.let {
                 SectionsList(list = it.sections) {
-                    navController.navigate(buildDetailsIntent(it.href.lastSegment().removeDtg()))
+                    navController.navigate(buildDetailsIntent(it.href))
                 }
             }
         }
         ERROR -> {
             TryAgainWidget(sectionsResponse.value.message) {
-                viewModel.getSectionDetail("")
+                viewModel.getAllSections()
             }
         }
     }
