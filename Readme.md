@@ -39,3 +39,6 @@ Written using Kotlin
 ## Offline Support
 - Yes 
  
+## What can I do next ?
+- UI test to be added 
+- Shared animation 
